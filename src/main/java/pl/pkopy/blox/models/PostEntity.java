@@ -37,6 +37,8 @@ public class PostEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
+//    private int postId;
+
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 
@@ -48,7 +50,7 @@ public class PostEntity {
         setArticle(postForm.getArticle());
         setAuthor(postForm.getAuthor());
         setTitle(postForm.getTitle());
-        setCategory(postForm.getCategory());
+//        setCategory(postForm.getCategory());
         setSenderIp(postForm.getSenderIp());
     }
 

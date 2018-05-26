@@ -28,7 +28,7 @@ public class MainController {
     @GetMapping("/")
 
     public String index(Model model){
-        model.addAttribute("allPosts", postRepository.findAll());
+        model.addAttribute("allPosts", postRepository.findAllByOrderByIdDesc());
 
 
 

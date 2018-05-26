@@ -82,7 +82,7 @@
             Text: <input type="text" th:field="*{article}">
           KAt:<select >
               <option></option>
-              <option th:each="item : ${allCategories}" th:value="${item.getId()}" th:text="${item.getName()}" ></option>
+              <option th:each="item : ${allCategories}" th:value="${item.getId()}" th:text="${item.getName()" th:field="*{category}" ></option>
           </select>
             ip: <input type="text" th:field="*{category}">
             Kod kreskowy: <input type="text"  th:field="*{author}">

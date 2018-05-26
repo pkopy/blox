@@ -13,7 +13,7 @@ public class PostForm {
     private String title;
     private String article;
     private String author;
-    private CategoryEntity category;
+    private int category;
     private String senderIp;
 
     public PostForm(){
