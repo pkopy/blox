@@ -45,14 +45,14 @@ public class PostEntity {
     public PostEntity(){
 
     }
-
-    public PostEntity(PostForm postForm){
-        setArticle(postForm.getArticle());
-        setAuthor(postForm.getAuthor());
-        setTitle(postForm.getTitle());
+//
+//    public PostEntity(PostForm postForm){
+//        setArticle(postForm.getArticle());
+//        setAuthor(postForm.getAuthor());
+//        setTitle(postForm.getTitle());
 //        setCategory(postForm.getCategory());
-        setSenderIp(postForm.getSenderIp());
-    }
+//        setSenderIp(postForm.getSenderIp());
+//    }
 
     public int getId() {
         return id;

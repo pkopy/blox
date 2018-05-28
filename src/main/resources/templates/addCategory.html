@@ -77,17 +77,9 @@
           </div>
 
         <div class="add-post">
-          <form method="post" action="/addPost" th:object="${postForm}">
-            Tytuł: <input type="text" th:field="*{title}">
-            Text: <input type="text" th:field="*{article}">
-          Kategoria:<select th:field="*{category}">
-
-              <option th:each="item : ${allCategories}" th:name="${item.getId()}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
-          </select>
-            ip: <input type="text" th:field="*{senderIp}">
-            Autor: <input type="text"  th:field="*{author}">
-
-            <input class="btn btn-primary float-right" type="submit" value="Dodaj">
+          <form method="post" action="/addCategory">
+            <input type="text" th:name="addCategory" placeholder="Wpisz kategorie">
+            <input type="submit" value="Wyślij">
           </form>
         </div>
 

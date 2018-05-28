@@ -4,14 +4,13 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.pkopy.blox.models.PostEntity;
 import pl.pkopy.blox.models.forms.PostForm;
 import pl.pkopy.blox.models.repositories.CategoryRepository;
 import pl.pkopy.blox.models.repositories.PostRepository;
+import pl.pkopy.blox.models.services.CategoryService;
+import pl.pkopy.blox.models.services.PostService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,12 @@ public class MainController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    PostService postService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/")
 
@@ -46,9 +51,23 @@ public class MainController {
     @PostMapping("/addPost")
     public String add(@ModelAttribute PostForm postForm,
                       Model model){
-        PostEntity postEntity = new PostEntity(postForm);
+        PostEntity postEntity = new PostEntity();
         model.addAttribute("allCategories", categoryRepository.findAll());
-        postRepository.save(postEntity);
+        postService.addPost(postForm);
         return "index";
+    }
+
+    @GetMapping("/addCategory")
+    public String addCategoryGet(Model model){
+        return "addCategory";
+    }
+
+    @PostMapping("/addCategory")
+    public String addCategory(@RequestParam("addCategory") String addCategory, Model model){
+        categoryService.addCategory(addCategory);
+
+        return "index";
+
+
     }
 }
