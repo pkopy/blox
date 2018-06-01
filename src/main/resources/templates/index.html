@@ -73,7 +73,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 
           <div th:each="post : ${allPosts}">
-              <a href="post.html">
+              <a th:href="${'/post/' + post.getId()}">
                   <h2 class="post-title" th:text="${post.getTitle()}">
 
                   </h2>
@@ -85,7 +85,7 @@
 
           <!-- Pager -->
             <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Add post &rarr;</a>
+                <a class="btn btn-primary float-right" href="/addPost">Add post &rarr;</a>
             </div>
           <div class="clearfix">
             <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>

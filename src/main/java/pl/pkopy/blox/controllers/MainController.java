@@ -45,6 +45,7 @@ public class MainController {
     public String addPost(Model model){
         model.addAttribute("postForm", new PostForm());
         model.addAttribute("allCategories", categoryRepository.findAll());
+
         return "addPost";
     }
 
@@ -69,5 +70,10 @@ public class MainController {
         return "index";
 
 
+    }
+
+    @GetMapping("/post/{postId}")
+    public String displayPost(@PathVariable("postId") int postId){
+        return "post";
     }
 }

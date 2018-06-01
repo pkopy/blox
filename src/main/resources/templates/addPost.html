@@ -71,10 +71,6 @@
     <div class="container">
       <div class="row">
 
-          <div th:each="item : ${allCategories}">
-              <div th:text="${item.getId()}"></div>
-              <div th:text="${item.getName()}"></div>
-          </div>
 
         <div class="add-post">
           <form method="post" action="/addPost" th:object="${postForm}">
