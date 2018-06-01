@@ -67,13 +67,16 @@ public class MainController {
     public String addCategory(@RequestParam("addCategory") String addCategory, Model model){
         categoryService.addCategory(addCategory);
 
-        return "index";
+        return "redirect:/";
 
 
     }
 
     @GetMapping("/post/{postId}")
-    public String displayPost(@PathVariable("postId") int postId){
+    public String displayPost(@PathVariable("postId") int postId,
+                              Model model){
+        model.addAttribute("post", postRepository.findById(postId).orElseThrow(IllegalStateException::new));
+//        System.out.println(postRepository.findById(postId));
         return "post";
     }
 }
