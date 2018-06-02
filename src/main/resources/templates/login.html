@@ -71,14 +71,15 @@
     <div class="container">
       <div class="row">
 
-          <div th:each="item : ${allCategories}">
-              <div th:text="${item.getId()}"></div>
-              <div th:text="${item.getName()}"></div>
+          <div th:each="user : ${allUsers}">
+              <div th:text="${user.getId()}"></div>
+              <div th:text="${user.getUser()}"></div>
           </div>
 
         <div class="add-post">
-          <form method="post" action="/addCategory">
-            <input type="text" th:name="addCategory" placeholder="Wpisz kategorie">
+          <form method="post" action="/login" th:object="${loginForm}">
+            User:<input type="text" th:field="*{user}" >
+            Password:<input type="password" th:field="*{password}">
             <input type="submit" class="btn btn-primary float-right" value="Wyślij">
           </form>
         </div>

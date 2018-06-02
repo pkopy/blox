@@ -60,6 +60,7 @@ public class MainController {
 
     @GetMapping("/addCategory")
     public String addCategoryGet(Model model){
+        model.addAttribute("allCategories", categoryRepository.findAll());
         return "addCategory";
     }
 
