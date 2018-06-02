@@ -10,6 +10,7 @@ import pl.pkopy.blox.models.forms.PostForm;
 import pl.pkopy.blox.models.repositories.CategoryRepository;
 import pl.pkopy.blox.models.repositories.PostRepository;
 import pl.pkopy.blox.models.services.CategoryService;
+import pl.pkopy.blox.models.services.LoginService;
 import pl.pkopy.blox.models.services.PostService;
 
 import java.util.ArrayList;
@@ -30,10 +31,14 @@ public class MainController {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    LoginService loginService;
+
     @GetMapping("/")
 
     public String index(Model model){
         model.addAttribute("allPosts", postRepository.findAllByOrderByIdDesc());
+        model.addAttribute("login",loginService);
 
 
 
@@ -45,6 +50,7 @@ public class MainController {
     public String addPost(Model model){
         model.addAttribute("postForm", new PostForm());
         model.addAttribute("allCategories", categoryRepository.findAll());
+        model.addAttribute("login",loginService);
 
         return "addPost";
     }
@@ -54,19 +60,27 @@ public class MainController {
                       Model model){
         PostEntity postEntity = new PostEntity();
         model.addAttribute("allCategories", categoryRepository.findAll());
+        model.addAttribute("login",loginService);
+
         postService.addPost(postForm);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/addCategory")
     public String addCategoryGet(Model model){
         model.addAttribute("allCategories", categoryRepository.findAll());
+        if(loginService.isLogin()){
+
         return "addCategory";
+        }else{
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam("addCategory") String addCategory, Model model){
         categoryService.addCategory(addCategory);
+        model.addAttribute("login",loginService);
 
         return "redirect:/";
 
@@ -77,6 +91,7 @@ public class MainController {
     public String displayPost(@PathVariable("postId") int postId,
                               Model model){
         model.addAttribute("post", postRepository.findById(postId).orElseThrow(IllegalStateException::new));
+        model.addAttribute("login",loginService);
 //        System.out.println(postRepository.findById(postId));
         return "post";
     }

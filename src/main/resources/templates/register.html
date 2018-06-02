@@ -39,7 +39,7 @@
               <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a th:if="${login.isLogin()}" class="nav-link" href="/addPost">Add post</a>
+                <a th:if="${login.isLogin()}" class="nav-link" href="/addPost">Add post</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
@@ -60,7 +60,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Blox</h1>
-              <span class="subheading">Bootcamp Java Online Edition 2018</span>
+              <span class="subheading" >Bootcamp Java Online Edition 2018'</span>
             </div>
           </div>
         </div>
@@ -69,27 +69,30 @@
 
     <!-- Main Content -->
     <div class="container">
+        <p th:if="${login.isUserExist()}" th:text="${'Podany użytkownik już  istnieje' }"></p>
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
 
-          <div th:each="post : ${allPosts}">
-              <a th:href="${'/post/' + post.getId()}">
-                  <h2 class="post-title" th:text="${post.getTitle()}">
+          <!--<div th:each="user : ${allUsers}">-->
+              <!--<div th:text="${user.getId()}"></div>-->
+              <!--<div th:text="${user.getUser()}"></div>-->
+          <!--</div>-->
+        <br>
+        <div class="col-lg-8 col-md-10 mx-auto" style="text-align: right; margin: 5px">
+          <form method="post" action="/register" th:object="${loginForm}">
+            User:<input type="text" th:field="*{user}" ><br>
+            Password:<input type="password" th:field="*{password}"><br>
+            <input type="submit" class="btn btn-primary float-right" value="Zarejestruj">
+          </form>
+        </div>
 
-                  </h2>
-                  <h3 class="post-subtitle"></h3>
-              </a>
-              <p class="post-meta" th:text="${'Posted by: ' + post.getAuthor() + ' on ' + post.getCreationTime() }"></p>
 
-          </div>
-
-          <!-- Pager -->
-            <div th:if="${login.isLogin()}" class="clearfix">
-                <a class="btn btn-primary float-right" href="/addPost">Dodaj Post</a>
-            </div>
-          <div class="clearfix">
+          <!--&lt;!&ndash; Pager &ndash;&gt;-->
+            <!--<div class="clearfix">-->
+                <!--<a class="btn btn-primary float-right" href="#">Add post &rarr;</a>-->
+            <!--</div>-->
+          <!--<div class="clearfix">-->
             <!--<a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
-          </div>
+          <!--</div>-->
 
       </div>
     </div>
@@ -139,7 +142,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
-    </div>
+
   </body>
 
 </html>

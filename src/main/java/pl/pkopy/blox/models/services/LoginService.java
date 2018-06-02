@@ -11,6 +11,8 @@ import pl.pkopy.blox.models.forms.LoginForm;
 import pl.pkopy.blox.models.repositories.LoginRepository;
 
 import java.lang.instrument.IllegalClassFormatException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,10 @@ public class LoginService {
     @Autowired
     LoginRepository loginRepository;
 
+
     private boolean isLogin;
+    private boolean isUserExist;
+    private String author;
 
 
     public LoginService(){
@@ -35,8 +40,37 @@ public class LoginService {
 
         if(loginEntity != null && loginEntity.getPassword().equals(loginForm.getPassword())){
             isLogin = true;
+            author = loginEntity.getUser();
         }else {
             isLogin = false;
         }
+    }
+
+    public boolean isExist(LoginForm loginForm) {
+        Iterable<LoginEntity> users = loginRepository.findAll();
+
+        for(LoginEntity user : users){
+            if (user.getUser().equals(loginForm.getUser())){
+                isUserExist = true;
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public void register(LoginForm loginForm) {
+
+        LoginEntity loginEntity = new LoginEntity();
+        loginEntity.setUser(loginForm.getUser());
+        loginEntity.setPassword(loginForm.getPassword());
+
+        loginRepository.save(loginEntity);
+
+
+
+
+
+
     }
 }

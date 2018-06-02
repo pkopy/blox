@@ -36,16 +36,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
+              <a th:if="${login.isLogin()}" class="nav-link" href="/addPost">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="post.html">Sample Post</a>
+              <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a th:text="${login.isLogin() ? 'Logout ' + login.getAuthor() : 'Login'}" class="nav-link" th:href="${login.isLogin() ? '/logout' : '/login'}"></a>
             </li>
           </ul>
         </div>
@@ -69,18 +69,19 @@
 
     <!-- Main Content -->
     <div class="container">
+      <!--<p th:text="${login.isLogin() ? 'Logout' : 'Login'}"></p>-->
       <div class="row">
 
-          <div th:each="user : ${allUsers}">
-              <div th:text="${user.getId()}"></div>
-              <div th:text="${user.getUser()}"></div>
-          </div>
+          <!--<div th:each="user : ${allUsers}">-->
+              <!--<div th:text="${user.getId()}"></div>-->
+              <!--<div th:text="${user.getUser()}"></div>-->
+          <!--</div>-->
 
-        <div class="add-post">
+        <div class="col-lg-8 col-md-10 mx-auto" style="text-align: right; margin: 5px">
           <form method="post" action="/login" th:object="${loginForm}">
-            User:<input type="text" th:field="*{user}" >
-            Password:<input type="password" th:field="*{password}">
-            <input type="submit" class="btn btn-primary float-right" value="Wyślij">
+            User:<input type="text" th:field="*{user}" ><br>
+            Password:<input type="password" th:field="*{password}"><br>
+            <input type="submit" class="btn btn-primary float-right" value="Zaloguj">
           </form>
         </div>
 

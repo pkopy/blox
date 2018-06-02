@@ -22,19 +22,52 @@ public class LoginController {
     public String login(Model model){
         model.addAttribute("allUsers", loginRepository.findAll());
         model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("login", loginService);
         return "login";
     }
 
     @PostMapping("/login")
-    @ResponseBody
+
     public String loginPost(@ModelAttribute LoginForm loginForm){
         loginService.login(loginForm);
 
         if(loginService.isLogin()){
-            return "Zalogowano";
+            return "redirect:/";
         }else{
-            return "Coś poszło nie tak";
+            return "redirect:/login";
         }
 
     }
+
+    @GetMapping("/logout")
+    public String logout(){
+
+        loginService.setLogin(false);
+        return "redirect:/";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model){
+
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("login", loginService);
+        return "register";
+
+    }
+
+    @PostMapping("/register")
+    public String registerPost(@ModelAttribute LoginForm loginForm,
+                               Model model){
+        model.addAttribute("login", loginService);
+        if(loginService.isExist(loginForm)){
+            loginService.register(loginForm);
+
+            return "redirect:/login";
+        }else{
+            return "register";
+        }
+
+    }
+
+
 }

@@ -26,6 +26,8 @@ public class PostService {
 
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    LoginService loginService;
 
 
     public PostService(){
@@ -36,7 +38,7 @@ public class PostService {
 
         PostEntity postEntity = new PostEntity();
         postEntity.setCategory(categoryEntity.orElseThrow(IllegalStateException::new));
-        postEntity.setAuthor(postForm.getAuthor());
+        postEntity.setAuthor(loginService.getAuthor());
         postEntity.setArticle(postForm.getArticle());
         postEntity.setTitle(postForm.getTitle());
         postEntity.setComments(Collections.emptyList());

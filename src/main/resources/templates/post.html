@@ -36,16 +36,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
+              <a th:if="${login.isLogin()}" class="nav-link" href="/addPost">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="post.html">Sample Post</a>
+              <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a th:text="${login.isLogin() ? 'Logout ' + login.getAuthor() : 'Login'}" class="nav-link" th:href="${login.isLogin() ? '/logout' : '/login'}"></a>
             </li>
           </ul>
         </div>
