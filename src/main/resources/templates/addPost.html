@@ -42,7 +42,7 @@
               <a th:if="${login.isLogin()}" class="nav-link" href="/addPost">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/register">Register</a>
+              <a th:if="${!login.isLogin()}" class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
               <a th:text="${login.isLogin() ? 'Logout ' + login.getAuthor() : 'Login'}" class="nav-link" th:href="${login.isLogin() ? '/logout' : '/login'}"></a>
@@ -80,7 +80,7 @@
 
               <option th:each="item : ${allCategories}" th:name="${item.getId()}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
           </select><br>
-            ip: <input type="text" th:field="*{senderIp}">
+            ip: <input type="text" th:field="*{senderIp}"><br>
             <!--Autor: <input type="text"  th:field="*{author}">-->
 
             <input class="btn btn-primary float-right" type="submit" value="Dodaj">

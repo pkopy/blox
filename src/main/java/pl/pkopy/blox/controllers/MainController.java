@@ -52,7 +52,11 @@ public class MainController {
         model.addAttribute("allCategories", categoryRepository.findAll());
         model.addAttribute("login",loginService);
 
-        return "addPost";
+        if(loginService.isLogin()){
+            return "addPost";
+        }
+
+        return "redirect:/";
     }
 
     @PostMapping("/addPost")
