@@ -101,7 +101,7 @@ public class MainController {
     public String displayPost(@PathVariable("postId") int postId,
                               Model model){
         model.addAttribute("post", postRepository.findById(postId).orElseThrow(IllegalStateException::new));
-        model.addAttribute("allComments", commentRepository.findAllByPost(postRepository.findById(postId).orElseThrow(IllegalStateException::new)));
+        model.addAttribute("allComments", commentRepository.findAllByPostOrderByCreationTimeDesc(postRepository.findById(postId).orElseThrow(IllegalStateException::new)));
         model.addAttribute("login",loginService);
 
 //        System.out.println(postRepository.findById(postId));
