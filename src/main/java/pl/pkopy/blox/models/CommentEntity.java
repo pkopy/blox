@@ -29,7 +29,7 @@ public class CommentEntity {
 
     @Override
     public String toString() {
-        return "CommentEntity{" +
+        return "CommentRepository{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.pkopy.blox.models.PostEntity;
 import pl.pkopy.blox.models.forms.PostForm;
 import pl.pkopy.blox.models.repositories.CategoryRepository;
+import pl.pkopy.blox.models.repositories.CommentRepository;
 import pl.pkopy.blox.models.repositories.PostRepository;
 import pl.pkopy.blox.models.services.CategoryService;
 import pl.pkopy.blox.models.services.LoginService;
@@ -33,6 +34,9 @@ public class MainController {
 
     @Autowired
     LoginService loginService;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping("/")
 
@@ -67,12 +71,14 @@ public class MainController {
         model.addAttribute("login",loginService);
 
         postService.addPost(postForm);
+
         return "redirect:/";
     }
 
     @GetMapping("/addCategory")
     public String addCategoryGet(Model model){
         model.addAttribute("allCategories", categoryRepository.findAll());
+        model.addAttribute("login",loginService);
         if(loginService.isLogin()){
 
         return "addCategory";
@@ -83,8 +89,8 @@ public class MainController {
 
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam("addCategory") String addCategory, Model model){
-        categoryService.addCategory(addCategory);
         model.addAttribute("login",loginService);
+        categoryService.addCategory(addCategory);
 
         return "redirect:/";
 
@@ -95,7 +101,9 @@ public class MainController {
     public String displayPost(@PathVariable("postId") int postId,
                               Model model){
         model.addAttribute("post", postRepository.findById(postId).orElseThrow(IllegalStateException::new));
+        model.addAttribute("allComments", commentRepository.findAllByPost(postRepository.findById(postId).orElseThrow(IllegalStateException::new)));
         model.addAttribute("login",loginService);
+
 //        System.out.println(postRepository.findById(postId));
         return "post";
     }
