@@ -91,8 +91,8 @@
           <div class="col-lg-8 col-md-10 mx-auto">
               <p>Komentarze</p>
             <div th:each="comment : ${allComments}">
-                <p style="font-size: small; font-weight:bold" th:text="${'Comment by: ' + comment.getAuthor() + ' on ' + comment.getCreationTime()}"></p>
-                <p style="font-size: small" th:text="${comment.getContent()}"></p>
+                <p style="font-size: small; font-weight:bold; margin: 2px" th:text="${'Comment by: ' + comment.getAuthor() + ' on ' + comment.getCreationTime()}"></p>
+                <p style="font-size: small; margin: 0" th:text="${comment.getContent()}"></p>
             </div>
             <div>
                 <a class="btn btn-primary float-right" th:if="${login.isLogin()}" th:href="${'/addComment/' + post.getId()}">Dodaj komentarz</a>
