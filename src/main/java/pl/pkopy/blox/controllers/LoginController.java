@@ -3,6 +3,7 @@ package pl.pkopy.blox.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.pkopy.blox.models.forms.LoginForm;
 import pl.pkopy.blox.models.repositories.LoginRepository;
 import pl.pkopy.blox.models.services.LoginService;
+
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -28,7 +31,8 @@ public class LoginController {
 
     @PostMapping("/login")
 
-    public String loginPost(@ModelAttribute LoginForm loginForm){
+    public String loginPost(@ModelAttribute @Valid LoginForm loginForm,
+                            BindingResult bindingResult){
         loginService.login(loginForm);
 
         if(loginService.isLogin()){
@@ -56,7 +60,8 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@ModelAttribute LoginForm loginForm,
+    public String registerPost(@ModelAttribute @Valid LoginForm loginForm,
+                               BindingResult bindingResult,
                                Model model){
         model.addAttribute("login", loginService);
         if(loginService.isExist(loginForm)){
