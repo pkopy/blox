@@ -81,6 +81,7 @@
           <form method="post" action="/login" th:object="${loginForm}">
             User:<input type="text" th:field="*{user}" ><br>
             Password:<input type="password" th:field="*{password}"><br>
+            <p style="color: red; font-size: small; padding: 0; margin: 0" th:if="${login.isLoginFail()}" th:text="${'Coś poszło nie tak' }"></p>
             <input type="submit" class="btn btn-primary float-right" value="Zaloguj">
           </form>
         </div>

@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.pkopy.blox.models.CategoryEntity;
 import pl.pkopy.blox.models.PostEntity;
 import pl.pkopy.blox.models.forms.PostForm;
 import pl.pkopy.blox.models.repositories.CategoryRepository;
 import pl.pkopy.blox.models.repositories.PostRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -29,8 +32,13 @@ public class PostService {
     @Autowired
     LoginService loginService;
 
+    private HttpServletRequest request;
+    private String ip;
 
     public PostService(){
+        request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest();
+        ip = request.getRemoteAddr();
     }
 
     public void addPost(PostForm postForm) {
@@ -42,7 +50,7 @@ public class PostService {
         postEntity.setArticle(postForm.getArticle());
         postEntity.setTitle(postForm.getTitle());
         postEntity.setComments(Collections.emptyList());
-        postEntity.setSenderIp(postForm.getSenderIp());
+        postEntity.setSenderIp(ip);
 
         postRepository.save(postEntity);
     }

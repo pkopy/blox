@@ -79,7 +79,7 @@
                   </h2>
                   <h3 class="post-subtitle"></h3>
               </a>
-              <p class="post-meta" th:text="${'Posted by: ' + post.getAuthor() + ' on ' + post.getCreationTime() }"></p>
+              <p class="post-meta" th:text="${'Posted by: ' + post.getAuthor() + ' on ' + post.getCreationTime() + ' from ip: ' + post.getSenderIp()}"></p>
 
           </div>
 

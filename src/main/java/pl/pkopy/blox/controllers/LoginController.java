@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.pkopy.blox.models.forms.LoginForm;
 import pl.pkopy.blox.models.repositories.LoginRepository;
 import pl.pkopy.blox.models.services.LoginService;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -26,19 +30,32 @@ public class LoginController {
         model.addAttribute("allUsers", loginRepository.findAll());
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("login", loginService);
+        loginService.setLoginFail(false);
         return "login";
     }
 
     @PostMapping("/login")
 
     public String loginPost(@ModelAttribute @Valid LoginForm loginForm,
-                            BindingResult bindingResult){
+                            BindingResult bindingResult,
+                            Model model){
+        model.addAttribute("login", loginService);
+
+
+        loginService.setLoginFail(false);
+        if(bindingResult.hasErrors()){
+            loginService.setLoginFail(true);
+
+            return "login";
+        }
         loginService.login(loginForm);
+
 
         if(loginService.isLogin()){
             return "redirect:/";
         }else{
-            return "redirect:/login";
+            loginService.setLoginFail(true);
+            return "login";
         }
 
     }
@@ -55,6 +72,7 @@ public class LoginController {
 
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("login", loginService);
+        loginService.setLoginFail(false);
         return "register";
 
     }
@@ -63,12 +81,21 @@ public class LoginController {
     public String registerPost(@ModelAttribute @Valid LoginForm loginForm,
                                BindingResult bindingResult,
                                Model model){
+
         model.addAttribute("login", loginService);
+
+
+        loginService.setLoginFail(false);
+        if(bindingResult.hasErrors()){
+            loginService.setLoginFail(true);
+            return "register";
+        }
         if(loginService.isExist(loginForm)){
             loginService.register(loginForm);
 
             return "redirect:/login";
         }else{
+
             return "register";
         }
 

@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class LoginForm {
     @NotEmpty
-    @Size(min = 6)
+    @Size(min = 5)
     private String user;
     @NotEmpty
     @Size(min = 6)

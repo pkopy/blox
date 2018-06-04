@@ -27,11 +27,13 @@ public class LoginService {
 
     private boolean isLogin;
     private boolean isUserExist;
+    private boolean isLoginFail;
     private String author;
 
 
     public LoginService(){
         isLogin = false;
+        isLoginFail = false;
     }
 
     public void login(LoginForm loginForm){

@@ -75,12 +75,12 @@
         <div class="add-post">
           <form method="post" action="/addPost" th:object="${postForm}">
             Tytuł: <input type="text" th:field="*{title}"><br>
-            Text: <input type="textarea" th:field="*{article}"><br>
+            Text: <input type="text" th:field="*{article}"><br>
           Kategoria:<select th:field="*{category}"><br>
 
               <option th:each="item : ${allCategories}" th:name="${item.getId()}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
           </select><br>
-            ip: <input type="text" th:field="*{senderIp}"><br>
+            <!--ip: <input type="text" th:field="*{senderIp}"><br>-->
             <!--Autor: <input type="text"  th:field="*{author}">-->
 
             <input class="btn btn-primary float-right" type="submit" value="Dodaj">

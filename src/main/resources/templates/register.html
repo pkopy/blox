@@ -69,7 +69,7 @@
 
     <!-- Main Content -->
     <div class="container">
-        <p th:if="${login.isUserExist()}" th:text="${'Podany użytkownik już  istnieje' }"></p>
+
       <div class="row">
 
           <!--<div th:each="user : ${allUsers}">-->
@@ -80,7 +80,9 @@
         <div class="col-lg-8 col-md-10 mx-auto" style="text-align: right; margin: 5px">
           <form method="post" action="/register" th:object="${loginForm}">
             User:<input type="text" th:field="*{user}" ><br>
+            <p style="color: red; font-size: small; padding: 0; margin: 0" th:if="${login.isUserExist()}" th:text="${'Podany użytkownik już  istnieje' }"></p>
             Password:<input type="password" th:field="*{password}"><br>
+            <p style="color: red; font-size: small; padding: 0; margin: 0" th:if="${login.isLoginFail()}" th:text="${'Haslo musi mieć więcej niż 6 znaków' }"></p>
             <input type="submit" class="btn btn-primary float-right" value="Zarejestruj">
           </form>
         </div>
